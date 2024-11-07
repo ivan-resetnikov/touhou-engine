@@ -53,4 +53,69 @@ namespace Engine
 
         glfwTerminate();
     }
+
+    IniData parseIniFile(const std::string& filePath) {
+        IniData iniData;
+        std::ifstream file(filePath);
+        std::string line, currentSection;
+
+        if (!file.is_open()) {
+            throw std::runtime_error("Unable to open file: " + filePath);
+        }
+
+        while (std::getline(file, line)) {
+            // Remove any comments starting with ';' or '#'
+            size_t commentPos = line.find_first_of(";#");
+            if (commentPos != std::string::npos) {
+                line = line.substr(0, commentPos);
+            }
+
+            // Trim whitespace from both ends
+            line.erase(0, line.find_first_not_of(" \t\r\n"));
+            line.erase(line.find_last_not_of(" \t\r\n") + 1);
+
+            if (line.empty()) {
+                continue;  // skip empty lines
+            }
+
+            // Handle section headers
+            if (line.front() == '[' && line.back() == ']') {
+                currentSection = line.substr(1, line.size() - 2);
+                iniData[currentSection] = {};  // Initialize a new section
+            }
+            // Handle key-value pairs
+            else {
+                size_t delimiterPos = line.find('=');
+                if (delimiterPos == std::string::npos) {
+                    throw std::runtime_error("Malformed line: " + line);
+                }
+
+                std::string key = line.substr(0, delimiterPos);
+                std::string value = line.substr(delimiterPos + 1);
+
+                // Trim whitespace from key and value
+                key.erase(0, key.find_first_not_of(" \t"));
+                key.erase(key.find_last_not_of(" \t") + 1);
+                value.erase(0, value.find_first_not_of(" \t"));
+                value.erase(value.find_last_not_of(" \t") + 1);
+
+                // Add key-value to the current section
+                iniData[currentSection][key] = value;
+            }
+        }
+
+        file.close();
+        return iniData;
+    }
+
+    // Function to print the parsed data (for demonstration)
+    void printIniData(const IniData& data) {
+        for (const auto& section : data) {
+            std::cout << "[" << section.first << "]\n";
+            for (const auto& kv : section.second) {
+                std::cout << "`" << kv.first << "` = `" << kv.second << "`\n";
+            }
+            std::cout << "\n";
+        }
+    }
 }

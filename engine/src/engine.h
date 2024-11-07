@@ -42,9 +42,19 @@ THE SOFTWARE.
 
 #include <GLFW/glfw3.h>
 
-extern "C" {
-    namespace Engine
-    {
-        ENGINE_API void hello();
-    }
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <map>
+#include <unordered_map>
+
+// Define a type to hold the parsed data: section -> (key, value) pairs
+using IniData = std::unordered_map<std::string, std::map<std::string, std::string>>;
+
+namespace Engine
+{
+    ENGINE_API void hello();
+    ENGINE_API IniData parseIniFile(const std::string& filePath);
+    ENGINE_API void printIniData(const IniData& data);
 }

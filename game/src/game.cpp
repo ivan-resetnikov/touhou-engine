@@ -28,6 +28,9 @@ THE SOFTWARE.
 #include "engine.h"
 
 int main() {
+    IniData data = Engine::parseIniFile("game.cfg");
+    Engine::printIniData(data);
+
     Engine::hello();
 
     return 0;
