@@ -40,6 +40,8 @@ THE SOFTWARE.
 
 #include <iostream>
 
+#include <GLFW/glfw3.h>
+
 extern "C" {
     namespace Engine
     {
