@@ -32,10 +32,10 @@ namespace Engine
     ContextFeatureStatus initGLFW()
     {
         if (glfwInit()) {
-            std::cout << "[DEBUG] Initialized GLFW" << std::endl;
+            logInfo("Initialized GLFW");
             return ContextFeatureStatus::GLFW_INIT_SUCCESS;
         } else {
-            std::cout << "[CRITICAL] Error initializing GLFW!" << std::endl;
+            logCritical("Error initializing GLFW!");
             return ContextFeatureStatus::GLFW_INIT_ERROR;
         }
     }

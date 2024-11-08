@@ -29,6 +29,7 @@ THE SOFTWARE.
 
 #include "pch.h"
 #include "context.h"
+#include "logging.h"
 
 namespace Engine
 {

@@ -36,7 +36,7 @@ namespace Engine
         if (!window) {
             const char* description;
             int code = glfwGetError(&description);
-            std::cerr << "GLFW Error " << code << ": " << description << std::endl;
+            logCritical("GLFW Error " + std::to_string(code) + ": " + description);
 
             glfwTerminate();
 

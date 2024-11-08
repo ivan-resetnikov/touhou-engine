@@ -27,26 +27,14 @@ THE SOFTWARE.
 
 #pragma once
 
-// Features
-#define ENGINE_PLATFORM_WINDOWS
-// #define ENGINE_LOGGING_DISABLE_INFO
-// #define ENGINE_LOGGING_DISABLE_CRITICAL
+#include "pch.h"
 
-// Includes
-#include <GLFW/glfw3.h>
-
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <map>
-#include <unordered_map>
-
-// Platform resolution
-#ifdef ENGINE_PLATFORM_WINDOWS
-    #ifdef ENGINE_BUILD_DLL
-        #define ENGINE_API __declspec(dllexport)
-    #else
-        #define ENGINE_API __declspec(dllimport)
-    #endif
+namespace Engine
+{
+#ifndef ENGINE_LOGGING_DISABLE_INFO
+    void logInfo(std::string message);
 #endif
+#ifndef ENGINE_LOGGING_DISABLE_CRITICAL
+    void logCritical(std::string message);
+#endif
+}

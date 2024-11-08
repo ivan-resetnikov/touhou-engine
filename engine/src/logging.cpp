@@ -25,28 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#pragma once
+#include "logging.h"
 
-// Features
-#define ENGINE_PLATFORM_WINDOWS
-// #define ENGINE_LOGGING_DISABLE_INFO
-// #define ENGINE_LOGGING_DISABLE_CRITICAL
-
-// Includes
-#include <GLFW/glfw3.h>
-
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <map>
-#include <unordered_map>
-
-// Platform resolution
-#ifdef ENGINE_PLATFORM_WINDOWS
-    #ifdef ENGINE_BUILD_DLL
-        #define ENGINE_API __declspec(dllexport)
-    #else
-        #define ENGINE_API __declspec(dllimport)
-    #endif
+namespace Engine
+{
+#ifndef ENGINE_LOGGING_DISABLE_INFO
+    void logInfo(std::string message) {
+        // WHY spaces: because the level name should be aligned
+        std::cout << "[INFO]     " << message << std::endl;
+    }
 #endif
+#ifndef ENGINE_LOGGING_DISABLE_CRITICAL
+    void logInfo(std::string message) {
+        // WHY spaces: because the level name should be aligned
+        std::cout << "[CRITICAL] " << message << std::endl;
+    }
+#endif
+}

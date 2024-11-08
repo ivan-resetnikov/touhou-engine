@@ -28,6 +28,7 @@ THE SOFTWARE.
 #pragma once
 
 #include "pch.h"
+#include "logging.h"
 
 namespace Engine
 {
