@@ -25,14 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#include "engine.h"
+#pragma once
 
-int main() {
-    Engine::MainWindow window;
-    
-    if (window.create() == Engine::MainWindowStatus::CREATE_ERROR) return 1;
+#include "pch.h"
 
-    window.mainLoop();
+namespace Engine
+{
+    enum class ContextFeatureStatus {
+        GLFW_INIT_SUCCESS,
+        GLFW_INIT_ERROR,
+        GLFW_TERM_SUCCESS,
+    };
 
-    return 0;
+    ContextFeatureStatus initGLFW();
+    ContextFeatureStatus terminateGLFW();
 }

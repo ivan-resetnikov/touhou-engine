@@ -25,14 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#include "engine.h"
+#pragma once
 
-int main() {
-    Engine::MainWindow window;
-    
-    if (window.create() == Engine::MainWindowStatus::CREATE_ERROR) return 1;
+// Includes
+#include <GLFW/glfw3.h>
 
-    window.mainLoop();
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <map>
+#include <unordered_map>
 
-    return 0;
-}
+// Features
+#define ENGINE_PLATFORM_WINDOWS
+
+// Platform resolution
+#ifdef ENGINE_PLATFORM_WINDOWS
+    #ifdef ENGINE_BUILD_DLL
+        #define ENGINE_API __declspec(dllexport)
+    #else
+        #define ENGINE_API __declspec(dllimport)
+    #endif
+#endif

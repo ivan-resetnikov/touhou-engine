@@ -40,11 +40,11 @@ set "LIBS=glfw3.lib opengl32.lib user32.lib gdi32.lib shell32.lib msvcrt.lib"
 
 :: Compile the engine DLL
 set "CORE_FLAGS=/LD"
-set "CORE_FILES=./engine/src/engine.cpp"
+set "CORE_FILES=./engine/src/engine.cpp ./engine/src/context.cpp ./engine/src/main_window.cpp"
 set "CORE_OUT_FILENAME=./bin/engine.dll"
 
 :: Define BUILD_DLL to export symbols when compiling the DLL
-cl %FLAGS% %CORE_FLAGS% %FEATURES% /I"./engine/src" /I"%INCLUDE_DIR%" "%CORE_FILES%" /Fo"./engine/obj/" /Fe"./bin/engine.dll" /link /IMPLIB:"./bin/engine.lib" /LIBPATH:"%LIB_DIR%" %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT
+cl %FLAGS% %CORE_FLAGS% %FEATURES% /I"./engine/src" /I"%INCLUDE_DIR%" %CORE_FILES% /Fo"./engine/obj/" /Fe"./bin/engine.dll" /link /IMPLIB:"./bin/engine.lib" /LIBPATH:"%LIB_DIR%" %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT
 
 :: Compile Main Game Code
 set "SOURCE_FILES=./game/src/game.cpp"

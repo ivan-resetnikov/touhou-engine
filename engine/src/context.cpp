@@ -25,14 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#include "engine.h"
+#include "context.h"
 
-int main() {
-    Engine::MainWindow window;
-    
-    if (window.create() == Engine::MainWindowStatus::CREATE_ERROR) return 1;
+namespace Engine
+{
+    ContextFeatureStatus initGLFW()
+    {
+        if (glfwInit()) {
+            std::cout << "[DEBUG] Initialized GLFW" << std::endl;
+            return ContextFeatureStatus::GLFW_INIT_SUCCESS;
+        } else {
+            std::cout << "[CRITICAL] Error initializing GLFW!" << std::endl;
+            return ContextFeatureStatus::GLFW_INIT_ERROR;
+        }
+    }
 
-    window.mainLoop();
-
-    return 0;
+    ContextFeatureStatus terminateGLFW()
+    {
+        glfwTerminate();
+        return ContextFeatureStatus::GLFW_TERM_SUCCESS;
+    }
 }

@@ -25,14 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#include "engine.h"
+#pragma once
 
-int main() {
-    Engine::MainWindow window;
+#include "pch.h"
+#include "context.h"
+
+namespace Engine
+{
+    enum class MainWindowStatus {
+        CREATE_SUCCESS,
+        CREATE_ERROR,
+    };
+
+    class ENGINE_API MainWindow {
+    public:
+        MainWindowStatus create();
+        void mainLoop();
     
-    if (window.create() == Engine::MainWindowStatus::CREATE_ERROR) return 1;
-
-    window.mainLoop();
-
-    return 0;
+    private:
+        GLFWwindow* window;
+    };
 }
