@@ -25,14 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#include "engine.h"
+#pragma once
 
-int main() {
-    Engine::MainWindow window;
-    
-    if (window.create() == Engine::MainWindowStatus::CREATE_ERROR) return 1;
+#include "pch.h"
 
-    window.mainLoop();
-
-    return 0;
+namespace Engine
+{
+    std::string getTimeFormated();
+#ifndef ENGINE_LOGGING_DISABLE_INFO
+    ENGINE_API void logInfo(std::string message);
+#endif
+#ifndef ENGINE_LOGGING_DISABLE_WARNING
+    ENGINE_API void logWarning(std::string message);
+#endif
+#ifndef ENGINE_LOGGING_DISABLE_CRITICAL
+    ENGINE_API void logCritical(std::string message);
+#endif
 }

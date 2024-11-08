@@ -45,6 +45,14 @@ namespace Engine
         std::cout << getTimeFormated() << " [INFO]     " << message << std::endl;
     }
 #endif
+
+#ifndef ENGINE_LOGGING_DISABLE_WARNING
+    void logWarning(std::string message)
+    {
+        std::cout << getTimeFormated() << " [WARNING]  " << message << std::endl;
+    }
+#endif
+
 #ifndef ENGINE_LOGGING_DISABLE_CRITICAL
     void logCritical(std::string message) {
         std::cout << getTimeFormated() << " [CRITICAL] " << message << std::endl;

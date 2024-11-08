@@ -38,19 +38,19 @@ set "INCLUDE_DIR=./include"
 set "LIB_DIR=./lib"
 set "LIBS=glfw3.lib opengl32.lib user32.lib gdi32.lib shell32.lib msvcrt.lib"
 
-:: Compile the engine DLL
+:: Compile the core DLL
 set "CORE_FLAGS=/LD"
-set "CORE_FILES=./engine/src/engine.cpp ./engine/src/context.cpp ./engine/src/main_window.cpp ./engine/src/logging.cpp"
-set "CORE_OUT_FILENAME=./bin/engine.dll"
+set "CORE_FILES=./core/src/core.cpp ./core/src/context.cpp ./core/src/main_window.cpp ./core/src/logging.cpp"
+set "CORE_OUT_FILENAME=./bin/core.dll"
 
 :: Define BUILD_DLL to export symbols when compiling the DLL
-cl %FLAGS% %CORE_FLAGS% %FEATURES% /I"./engine/src" /I"%INCLUDE_DIR%" %CORE_FILES% /Fo"./engine/obj/" /Fe"./bin/engine.dll" /link /IMPLIB:"./bin/engine.lib" /LIBPATH:"%LIB_DIR%" %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT
+cl %FLAGS% %CORE_FLAGS% %FEATURES% /I"./core/src" /I"%INCLUDE_DIR%" %CORE_FILES% /Fo"./core/obj/" /Fe"./bin/core.dll" /link /IMPLIB:"./bin/core.lib" /LIBPATH:"%LIB_DIR%" %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT
 
 :: Compile Main Game Code
-set "SOURCE_FILES=./game/src/game.cpp"
+set "SOURCE_FILES=./game/src/main.cpp"
 set "OUT_FILENAME=./bin/game.exe"
 
 del "%OUT_FILENAME%"
 
 :: Link core.lib (generated import library) with main game executable and libraries
-cl %FLAGS% /I"./engine/src" /I"%INCLUDE_DIR%" "%SOURCE_FILES%" /Fo"./game/obj/" /EHsc /link /LIBPATH:"./bin" /LIBPATH:"%LIB_DIR%" engine.lib %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT /out:"%OUT_FILENAME%"
+cl %FLAGS% /I"./core/src" /I"%INCLUDE_DIR%" "%SOURCE_FILES%" /Fo"./game/obj/" /EHsc /link /LIBPATH:"./bin" /LIBPATH:"%LIB_DIR%" core.lib %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT /out:"%OUT_FILENAME%"

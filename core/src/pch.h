@@ -27,15 +27,34 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "pch.h"
+// Features
+#define ENGINE_PLATFORM_WINDOWS
+// #define ENGINE_LOGGING_DISABLE_INFO
+// #define ENGINE_LOGGING_DISABLE_CRITICAL
+// #define ENGINE_LOGGING_DISABLE_WARNING
 
-namespace Engine
-{
-    std::string getTimeFormated();
-#ifndef ENGINE_LOGGING_DISABLE_INFO
-    ENGINE_API void logInfo(std::string message);
+// Includes
+#include <GLFW/glfw3.h>
+
+#include <cstdint>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <map>
+#include <unordered_map>
+#include <iomanip>
+#include <ctime>
+
+#include <chrono>
+#include <ctime>
+#include <iomanip>
+
+// Platform resolution
+#ifdef ENGINE_PLATFORM_WINDOWS
+    #ifdef ENGINE_BUILD_DLL
+        #define ENGINE_API __declspec(dllexport)
+    #else
+        #define ENGINE_API __declspec(dllimport)
+    #endif
 #endif
-#ifndef ENGINE_LOGGING_DISABLE_CRITICAL
-    ENGINE_API void logCritical(std::string message);
-#endif
-}

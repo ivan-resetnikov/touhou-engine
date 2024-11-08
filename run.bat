@@ -30,5 +30,5 @@ echo This run script is licensed under the MIT License.
 echo For more information, visit: REPO_LINK
 
 cd bin
-game.exe
+game.exe %*
 cd ..

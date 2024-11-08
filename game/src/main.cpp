@@ -25,34 +25,54 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#pragma once
+#include "core.h"
+#include "modes/editor.h"
+#include "modes/game.h"
 
-// Features
-#define ENGINE_PLATFORM_WINDOWS
-// #define ENGINE_LOGGING_DISABLE_INFO
-// #define ENGINE_LOGGING_DISABLE_CRITICAL
+enum class StartupMode {
+    GAME,
+    EDITOR,
+};
 
-// Includes
-#include <GLFW/glfw3.h>
+std::string stringify_StartupMode(StartupMode value) {
+    // @todo: Use switch-case
+    return std::string(value == StartupMode::GAME ? "GAME" : "EDITOR");
+}
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <map>
-#include <unordered_map>
-#include <iomanip>
-#include <ctime>
+void preInit();
 
-#include <chrono>
-#include <ctime>
-#include <iomanip>
+int main(int argc, char* argv[]) {
+    // Resolve startup mode
+    StartupMode startupMode = StartupMode::GAME;
+    if (argc > 1) {
+        if (argv[1] == "--editor") {
+            startupMode = StartupMode::EDITOR;
+        }
+        else if (argv[1] == "--game" || argv[1] == "-g") {
+            startupMode = StartupMode::GAME;
+        }
+        else {
+            Engine::logWarning("Invalid startup mode argument `" + std::string(argv[1]) + "`, defaulting to `StartupMode::GAME`");
+        }
+    } else {
+        Engine::logWarning("No startup mode argument provided, defaulting to `StartupMode::GAME`");
+    }
+    Engine::logInfo("Using startup mode `StartupMode::" + stringify_StartupMode(startupMode) + "`");
 
-// Platform resolution
-#ifdef ENGINE_PLATFORM_WINDOWS
-    #ifdef ENGINE_BUILD_DLL
-        #define ENGINE_API __declspec(dllexport)
-    #else
-        #define ENGINE_API __declspec(dllimport)
-    #endif
-#endif
+    // Startup
+    
+
+    preInit();
+
+    Engine::MainWindow window;
+    if (window.create() == Engine::MainWindowStatus::CREATE_ERROR) return 1;
+
+    window.mainLoop();
+
+    return 0;
+}
+
+void preInit()
+{
+    Engine::initGLFW();
+}
