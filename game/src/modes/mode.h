@@ -27,16 +27,13 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "mode.h"
-
 #include <iostream>
 
-class Game : public Mode
+class Mode
 {
 public:
-    void preInit();
+    virtual void preInit();
 
 private:
     
 };
-

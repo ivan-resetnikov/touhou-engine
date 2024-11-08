@@ -25,18 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#pragma once
+#include "game.h"
 
-#include "mode.h"
-
-#include <iostream>
-
-class Game : public Mode
+void Game::preInit()
 {
-public:
-    void preInit();
-
-private:
-    
-};
-
+    std::cout << "Using game mode" << std::endl;
+}

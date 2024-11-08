@@ -59,20 +59,34 @@ int main(int argc, char* argv[]) {
     }
     Engine::logInfo("Using startup mode `StartupMode::" + stringify_StartupMode(startupMode) + "`");
 
-    // Startup
-    
+    // Create mode handler
+    Mode* modeHandler = nullptr;
 
-    preInit();
+    switch (startupMode)
+    {
+    case StartupMode::GAME:
+        modeHandler = new Game(); // Dynamically allocate Game
+        break;
 
-    Engine::MainWindow window;
-    if (window.create() == Engine::MainWindowStatus::CREATE_ERROR) return 1;
+    case StartupMode::EDITOR:
+        modeHandler = new Editor(); // Dynamically allocate Editor
+        break;
+    }
 
-    window.mainLoop();
+    // Start main loop
+    modeHandler->preInit();
+
+    // Engine::MainWindow window;
+    // if (window.create() == Engine::MainWindowStatus::CREATE_ERROR) return 1;
+
+    // window.mainLoop();
+
+    delete modeHandler;
 
     return 0;
 }
 
 void preInit()
 {
-    Engine::initGLFW();
+    // Engine::initGLFW();
 }

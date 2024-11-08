@@ -25,18 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#pragma once
+#include "editor.h"
 
-#include "mode.h"
-
-#include <iostream>
-
-class Game : public Mode
+void Editor::preInit()
 {
-public:
-    void preInit();
-
-private:
-    
-};
-
+    std::cout << "Using editor mode" << std::endl;
+}

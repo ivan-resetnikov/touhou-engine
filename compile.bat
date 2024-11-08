@@ -47,10 +47,10 @@ set "CORE_OUT_FILENAME=./bin/core.dll"
 cl %FLAGS% %CORE_FLAGS% %FEATURES% /I"./core/src" /I"%INCLUDE_DIR%" %CORE_FILES% /Fo"./core/obj/" /Fe"./bin/core.dll" /link /IMPLIB:"./bin/core.lib" /LIBPATH:"%LIB_DIR%" %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT
 
 :: Compile Main Game Code
-set "SOURCE_FILES=./game/src/main.cpp"
+set "SOURCE_FILES=./game/src/main.cpp ./game/src/modes/mode.cpp ./game/src/modes/editor.cpp ./game/src/modes/game.cpp"
 set "OUT_FILENAME=./bin/game.exe"
 
 del "%OUT_FILENAME%"
 
 :: Link core.lib (generated import library) with main game executable and libraries
-cl %FLAGS% /I"./core/src" /I"%INCLUDE_DIR%" "%SOURCE_FILES%" /Fo"./game/obj/" /EHsc /link /LIBPATH:"./bin" /LIBPATH:"%LIB_DIR%" core.lib %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT /out:"%OUT_FILENAME%"
+cl %FLAGS% /I"./core/src" /I"%INCLUDE_DIR%" %SOURCE_FILES% /Fo"./game/obj/" /EHsc /link /LIBPATH:"./bin" /LIBPATH:"%LIB_DIR%" core.lib %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT /out:"%OUT_FILENAME%"
