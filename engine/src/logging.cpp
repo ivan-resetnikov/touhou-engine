@@ -29,16 +29,25 @@ THE SOFTWARE.
 
 namespace Engine
 {
+    std::string getTimeFormated()
+    {
+        auto now = std::chrono::system_clock::now(); // Get the current time point
+        auto nowTime = std::chrono::system_clock::to_time_t(now); // Convert to time_t for date
+        auto nowNanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(now.time_since_epoch()) % 1'000'000'000; // Get nanoseconds part
+        std::stringstream stringStream;
+        stringStream << std::put_time(std::localtime(&nowTime), "%Y-%m-%d %H:%M:%S") << "." << std::setw(9) << std::setfill('0') << nowNanoseconds.count();
+        return stringStream.str();
+    }
+
 #ifndef ENGINE_LOGGING_DISABLE_INFO
-    void logInfo(std::string message) {
-        // WHY spaces: because the level name should be aligned
-        std::cout << "[INFO]     " << message << std::endl;
+    void logInfo(std::string message)
+    {
+        std::cout << getTimeFormated() << " [INFO]     " << message << std::endl;
     }
 #endif
 #ifndef ENGINE_LOGGING_DISABLE_CRITICAL
-    void logInfo(std::string message) {
-        // WHY spaces: because the level name should be aligned
-        std::cout << "[CRITICAL] " << message << std::endl;
+    void logCritical(std::string message) {
+        std::cout << getTimeFormated() << " [CRITICAL] " << message << std::endl;
     }
 #endif
 }

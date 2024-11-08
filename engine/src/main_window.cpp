@@ -44,6 +44,7 @@ namespace Engine
         }
 
         glfwMakeContextCurrent(window);
+        glfwSwapInterval(1);
 
         return MainWindowStatus::CREATE_SUCCESS;
     }

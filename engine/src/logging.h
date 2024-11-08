@@ -31,10 +31,11 @@ THE SOFTWARE.
 
 namespace Engine
 {
+    std::string getTimeFormated();
 #ifndef ENGINE_LOGGING_DISABLE_INFO
-    void logInfo(std::string message);
+    ENGINE_API void logInfo(std::string message);
 #endif
 #ifndef ENGINE_LOGGING_DISABLE_CRITICAL
-    void logCritical(std::string message);
+    ENGINE_API void logCritical(std::string message);
 #endif
 }

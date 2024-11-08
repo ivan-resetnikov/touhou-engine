@@ -41,6 +41,12 @@ THE SOFTWARE.
 #include <string>
 #include <map>
 #include <unordered_map>
+#include <iomanip>
+#include <ctime>
+
+#include <chrono>
+#include <ctime>
+#include <iomanip>
 
 // Platform resolution
 #ifdef ENGINE_PLATFORM_WINDOWS
