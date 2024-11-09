@@ -25,24 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#include "context.h"
+#pragma once
 
-namespace Engine
+#include "core.h"
+#include <GLFW/glfw3.h>
+
+namespace Game
 {
-    ContextFeatureStatus initGLFW()
-    {
-        if (glfwInit()) {
-            logInfo("Initialized GLFW");
-            return ContextFeatureStatus::GLFW_INIT_SUCCESS;
-        } else {
-            logCritical("Error initializing GLFW!");
-            return ContextFeatureStatus::GLFW_INIT_ERROR;
-        }
-    }
+    enum class WindowStatus {
+        CREATE_SUCCESS,
+        CREATE_ERROR,
+    };
 
-    ContextFeatureStatus terminateGLFW()
-    {
-        glfwTerminate();
-        return ContextFeatureStatus::GLFW_TERM_SUCCESS;
-    }
+    class Window {
+    public:
+        WindowStatus create();
+        void mainLoop();
+    
+    private:
+        GLFWwindow* window;
+    };
 }

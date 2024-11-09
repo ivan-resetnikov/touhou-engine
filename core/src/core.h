@@ -27,4 +27,5 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "main_window.h"
+#include "pch.h"
+#include "logging.h"

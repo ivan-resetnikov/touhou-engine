@@ -2,5 +2,10 @@
 
 void Mode::preInit()
 {
-    std::cout << "Fuck" << std::endl;
+    Core::logWarning("Detected unimplemented Mode::preInit");
+}
+
+void Mode::start()
+{
+    Core::logWarning("Detected unimplemented Mode::start");
 }

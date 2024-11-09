@@ -31,3 +31,7 @@ void Editor::preInit()
 {
     std::cout << "Using editor mode" << std::endl;
 }
+
+void Editor::start()
+{
+}

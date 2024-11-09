@@ -27,7 +27,48 @@ THE SOFTWARE.
 
 #include "game.h"
 
-void Game::preInit()
+namespace Game
 {
-    std::cout << "Using game mode" << std::endl;
+    void ModeHandler::preInit()
+    {
+        // Core::initGLFW();
+
+        GLFWwindow* window;
+
+        if (!glfwInit())
+            return;
+
+        /* Create a windowed mode window and its OpenGL context */
+        window = glfwCreateWindow(640, 480, "Touhou Engine", NULL, NULL);
+        if (!window)
+        {
+            const char *desc;
+            glfwGetError(&desc);
+            std::cout << desc << std::endl;
+            glfwTerminate();
+            return;
+        }
+
+        /* Make the window's context current */
+        glfwMakeContextCurrent(window);
+
+        /* Loop until the user closes the window */
+        while (!glfwWindowShouldClose(window))
+        {
+            /* Render here */
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            /* Swap front and back buffers */
+            glfwSwapBuffers(window);
+
+            /* Poll for and process events */
+            glfwPollEvents();
+        }
+
+        glfwTerminate();
+    }
+
+    void ModeHandler::start()
+    {
+    }
 }

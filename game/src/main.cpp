@@ -39,8 +39,6 @@ std::string stringify_StartupMode(StartupMode value) {
     return std::string(value == StartupMode::GAME ? "GAME" : "EDITOR");
 }
 
-void preInit();
-
 int main(int argc, char* argv[]) {
     // Resolve startup mode
     StartupMode startupMode = StartupMode::GAME;
@@ -52,12 +50,12 @@ int main(int argc, char* argv[]) {
             startupMode = StartupMode::GAME;
         }
         else {
-            Engine::logWarning("Invalid startup mode argument `" + std::string(argv[1]) + "`, defaulting to `StartupMode::GAME`");
+            Core::logWarning("Invalid startup mode argument `" + std::string(argv[1]) + "`, defaulting to `StartupMode::GAME`");
         }
     } else {
-        Engine::logWarning("No startup mode argument provided, defaulting to `StartupMode::GAME`");
+        Core::logWarning("No startup mode argument provided, defaulting to `StartupMode::GAME`");
     }
-    Engine::logInfo("Using startup mode `StartupMode::" + stringify_StartupMode(startupMode) + "`");
+    Core::logInfo("Using startup mode `StartupMode::" + stringify_StartupMode(startupMode) + "`");
 
     // Create mode handler
     Mode* modeHandler = nullptr;
@@ -65,28 +63,19 @@ int main(int argc, char* argv[]) {
     switch (startupMode)
     {
     case StartupMode::GAME:
-        modeHandler = new Game(); // Dynamically allocate Game
+        modeHandler = new Game::ModeHandler();
         break;
 
     case StartupMode::EDITOR:
-        modeHandler = new Editor(); // Dynamically allocate Editor
+        modeHandler = new Editor();
         break;
     }
 
     // Start main loop
     modeHandler->preInit();
-
-    // Engine::MainWindow window;
-    // if (window.create() == Engine::MainWindowStatus::CREATE_ERROR) return 1;
-
-    // window.mainLoop();
+    modeHandler->start();
 
     delete modeHandler;
 
     return 0;
-}
-
-void preInit()
-{
-    // Engine::initGLFW();
 }

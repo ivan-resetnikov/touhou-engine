@@ -28,11 +28,13 @@ THE SOFTWARE.
 #pragma once
 
 #include <iostream>
+#include "core.h"
 
 class Mode
 {
 public:
     virtual void preInit();
+    virtual void start();
 
 private:
     

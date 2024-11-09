@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "pch.h"
 
-namespace Engine
+namespace Core
 {
     std::string getTimeFormated();
 #ifndef ENGINE_LOGGING_DISABLE_INFO

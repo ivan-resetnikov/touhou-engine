@@ -27,7 +27,7 @@ THE SOFTWARE.
 
 #include "logging.h"
 
-namespace Engine
+namespace Core
 {
     std::string getTimeFormated()
     {

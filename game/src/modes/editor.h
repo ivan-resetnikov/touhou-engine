@@ -29,12 +29,11 @@ THE SOFTWARE.
 
 #include "mode.h"
 
-#include <iostream>
-
 class Editor : public Mode
 {
 public:
     void preInit();
+    void start();
 
 private:
     

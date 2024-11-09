@@ -25,31 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#include "main_window.h"
+#include "window.h"
 
-namespace Engine
+namespace Game
 {
-    MainWindowStatus MainWindow::create() {
-        initGLFW();
-
+    WindowStatus Window::create() {
         window = glfwCreateWindow(640, 480, "Touhou Engine", NULL, NULL);
         if (!window) {
             const char* description;
             int code = glfwGetError(&description);
-            logCritical("GLFW Error " + std::to_string(code) + ": " + description);
+            Core::logCritical("GLFW Error " + std::to_string(code) + ": " + description);
 
             glfwTerminate();
 
-            return MainWindowStatus::CREATE_ERROR;
+            return WindowStatus::CREATE_ERROR;
         }
 
         glfwMakeContextCurrent(window);
         glfwSwapInterval(1);
 
-        return MainWindowStatus::CREATE_SUCCESS;
+        return WindowStatus::CREATE_SUCCESS;
     }
     
-    void MainWindow::mainLoop()
+    void Window::mainLoop()
     {
         while (!glfwWindowShouldClose(window)) {
             glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -59,7 +57,5 @@ namespace Engine
 
             glfwPollEvents();
         }
-
-        terminateGLFW();
     }
 }

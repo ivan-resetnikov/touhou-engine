@@ -28,7 +28,7 @@ THE SOFTWARE.
 // #include "engine.h"
 // // using IniData = std::unordered_map<std::string, std::map<std::string, std::string>>;
 
-// namespace Engine
+// namespace Core
 // {
 //     void hello() {
 //         GLFWwindow* window;

@@ -28,15 +28,17 @@ THE SOFTWARE.
 #pragma once
 
 #include "mode.h"
+#include "game/window.h"
 
-#include <iostream>
-
-class Game : public Mode
+namespace Game
 {
-public:
-    void preInit();
+    class ModeHandler : public Mode
+    {
+    public:
+        void preInit();
+        void start();
 
-private:
-    
-};
-
+    private:
+        
+    };   
+}
