@@ -43,10 +43,10 @@ int main(int argc, char* argv[]) {
     // Resolve startup mode
     StartupMode startupMode = StartupMode::GAME;
     if (argc > 1) {
-        if (argv[1] == "--editor") {
+        if (strcmp(argv[1], "-e") == 0 || strcmp(argv[1], "--editor") == 0) {
             startupMode = StartupMode::EDITOR;
         }
-        else if (argv[1] == "--game" || argv[1] == "-g") {
+        else if (strcmp(argv[1], "-g") == 0 || strcmp(argv[1], "--game") == 0) {
             startupMode = StartupMode::GAME;
         }
         else {
