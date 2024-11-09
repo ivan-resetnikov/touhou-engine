@@ -28,6 +28,7 @@ THE SOFTWARE.
 #pragma once
 
 #include "mode.h"
+#include <SDL.h>
 
 class Editor : public Mode
 {

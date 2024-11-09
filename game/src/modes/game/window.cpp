@@ -34,7 +34,7 @@ namespace Game
         if (!window) {
             const char* description;
             int code = glfwGetError(&description);
-            Core::logCritical("GLFW Error " + std::to_string(code) + ": " + description);
+            Core::logCritical("Could not create game window, GLFW Error " + std::to_string(code) + ": " + description);
 
             glfwTerminate();
 

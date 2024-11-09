@@ -29,9 +29,37 @@ THE SOFTWARE.
 
 void Editor::preInit()
 {
-    std::cout << "Using editor mode" << std::endl;
 }
 
 void Editor::start()
 {
+    SDL_Window *window;
+
+    Core::logInfo("Initializing SDL, used features: SDL_INIT_VIDEO");
+    SDL_Init(SDL_INIT_VIDEO);
+
+    Core::logInfo("Creating editor window");
+    window = SDL_CreateWindow("Touhou Engine Editor", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
+    if (window == NULL) {
+        Core::logCritical("Could not create game window, SDL error: " + (std::string)SDL_GetError());
+        return;
+    }
+
+    Core::logInfo("Entering main loop");
+    bool running = true;
+    SDL_Event event;
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = false;
+            }
+        }
+        SDL_Delay(16);
+    }
+
+    Core::logInfo("Exiting main loop");
+    SDL_DestroyWindow(window);
+
+    Core::logInfo("Cleaning up");
+    SDL_Quit();
 }

@@ -30,14 +30,14 @@ echo This compile script is licensed under the MIT License.
 echo For more information, visit: REPO_LINK
 
 :: Compilation flags
-set "FLAGS=/std:c++17 /W3 /O2 /EHsc /MD"
+set "FLAGS=/std:c++17 /W3 /O2 /EHsc /MD /DSDL_MAIN_HANDLED"
 set "FEATURES=/DENGINE_BUILD_DLL"
 
 :: Paths for includes, libraries, and output directories
 set "INCLUDE_DIR=./include"
 set "LIB_DIR=./lib"
 set "BIN_DIR=./bin"
-set "LIBS=glfw3.lib opengl32.lib user32.lib gdi32.lib shell32.lib msvcrt.lib"
+set "LIBS=glfw3.lib opengl32.lib user32.lib gdi32.lib shell32.lib msvcrt.lib SDL2.lib SDL2main.lib"
 
 :: Clear previous builds
 if exist "%BIN_DIR%\core.dll" del "%BIN_DIR%\core.dll"
