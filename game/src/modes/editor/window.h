@@ -28,27 +28,23 @@ THE SOFTWARE.
 #pragma once
 
 #include "core.h"
-#include <GLFW/glfw3.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <functional>
 
-namespace Game
+namespace Editor
 {
-    enum class WindowStatus {
-        CREATE_SUCCESS,
-        CREATE_ERROR,
-    };
-
-    class Window {
+    class Window
+    {
     public:
-        WindowStatus create();
-        void mainLoop(
-            GLFWkeyfun keyStateChanged,
-            std::function<void(GLFWwindow*)> handleInput,
-            std::function<void()> update,
-            std::function<void()> draw
-        );
+        SDL_Window *sdlWindow;
+        SDL_Renderer* renderer;
+        bool running = false;
+
+        void create();
+        void mainLoop();
     
     private:
-        GLFWwindow* glfwWindow;
+
     };
 }

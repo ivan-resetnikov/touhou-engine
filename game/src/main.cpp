@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
         break;
 
     case StartupMode::EDITOR:
-        modeHandler = new Editor();
+        modeHandler = new Editor::ModeHandler();
         break;
     }
 

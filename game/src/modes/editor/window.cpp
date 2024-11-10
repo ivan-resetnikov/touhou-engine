@@ -25,18 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#include "editor.h"
+#include "window.h"
 
 namespace Editor
 {
-    void ModeHandler::preInit()
-    {
-    }
-
-    void ModeHandler::start()
-    {
-        SDL_Window *window;
-
+    void Window::create() {
         Core::logInfo("Initializing SDL, used features: SDL_INIT_VIDEO");
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
             Core::logCritical("Failed to initialize SDL!");
@@ -51,43 +44,43 @@ namespace Editor
         }
 
         Core::logInfo("Creating editor window");
-        window = SDL_CreateWindow("Touhou Engine (Editor)", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
-        if (window == NULL) {
+        sdlWindow = SDL_CreateWindow("Touhou Engine (Editor)", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
+        if (sdlWindow == NULL) {
             Core::logCritical("Could not create game window! SDL error: " + (std::string)SDL_GetError());
             return;
         }
 
-        SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+        renderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_ACCELERATED);
         if (!renderer) {
             Core::logCritical("Renderer could not be created! SDL error: " + (std::string)SDL_GetError());
-            SDL_DestroyWindow(window);
+            SDL_DestroyWindow(sdlWindow);
             SDL_Quit();
             return;
         }
-
+    }
+    
+    void Window::mainLoop() {
         SDL_Texture* texture = IMG_LoadTexture(renderer, "editor/funny.jpg");
 
         Core::logInfo("Entering main loop");
-        bool running = true;
-        SDL_Event event;
+
+        const float targetFPS = 60.0f;
+        const Uint32 targetFrameDelay = 1000.0f / targetFPS;
+
+        running = true;
         while (running) {
-            while (SDL_PollEvent(&event)) {
-                if (event.type == SDL_QUIT) {
-                    running = false;
-                }
-            }
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
             SDL_RenderClear(renderer);
-
+            
             SDL_RenderCopy(renderer, texture, NULL, NULL);
 
             SDL_RenderPresent(renderer);
-            SDL_Delay(16);
+            SDL_Delay(targetFrameDelay);
         }
 
         Core::logInfo("Exiting main loop");
         SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
+        SDL_DestroyWindow(sdlWindow);
 
         Core::logInfo("Cleaning up");
         SDL_Quit();

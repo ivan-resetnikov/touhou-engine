@@ -37,7 +37,7 @@ set "FEATURES=/DENGINE_BUILD_DLL"
 set "INCLUDE_DIR=./include"
 set "LIB_DIR=./lib"
 set "BIN_DIR=./bin"
-set "LIBS=glfw3.lib opengl32.lib user32.lib gdi32.lib shell32.lib msvcrt.lib SDL2.lib SDL2main.lib"
+set "LIBS=glfw3.lib opengl32.lib user32.lib gdi32.lib shell32.lib msvcrt.lib SDL2.lib SDL2main.lib SDL2_image.lib"
 
 :: Clear previous builds
 if exist "%BIN_DIR%\core.dll" del "%BIN_DIR%\core.dll"
@@ -50,6 +50,7 @@ if not exist "./core/obj" mkdir "./core/obj"
 if not exist "./game/obj" mkdir "./game/obj"
 if not exist "./game/obj/modes" mkdir "./game/obj/modes"
 if not exist "./game/obj/modes/game" mkdir "./game/obj/modes/game"
+if not exist "./game/obj/modes/editor" mkdir "./game/obj/modes/editor"
 
 :: Compile core.dll
 cl %FLAGS% /LD %FEATURES% /I"./core/src" /I"%INCLUDE_DIR%" ^
@@ -59,8 +60,9 @@ cl %FLAGS% /LD %FEATURES% /I"./core/src" /I"%INCLUDE_DIR%" ^
 
 :: Compile game.exe
 cl %FLAGS% /I"./core/src" /I"%INCLUDE_DIR%" ^
-    ./game/src/main.cpp ./game/src/modes/mode.cpp ./game/src/modes/editor.cpp ^
+    ./game/src/main.cpp ./game/src/modes/mode.cpp ^
     ./game/src/modes/game.cpp ./game/src/modes/game/window.cpp ^
+    ./game/src/modes/editor.cpp ./game/src/modes/editor/window.cpp ^
     /Fo"./game/obj/" /Fe"%BIN_DIR%\game.exe" ^
     /link /LIBPATH:"%BIN_DIR%" /LIBPATH:"%LIB_DIR%" core.lib %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT
 

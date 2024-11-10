@@ -39,6 +39,6 @@ namespace Game
         void start();
 
     private:
-        
+        Game::Window window;
     };   
 }

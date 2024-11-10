@@ -28,15 +28,17 @@ THE SOFTWARE.
 #pragma once
 
 #include "mode.h"
-#include <SDL.h>
+#include "editor/window.h"
 
-class Editor : public Mode
+namespace Editor
 {
-public:
-    void preInit();
-    void start();
+    class ModeHandler : public Mode
+    {
+    public:
+        void preInit();
+        void start();
 
-private:
-    
-};
-
+    private:
+        
+    };
+}
