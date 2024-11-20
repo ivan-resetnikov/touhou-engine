@@ -1,8 +1,9 @@
 /***********************************
-This file is apart of: Touhou Engine
+This file is apart of: Generic Touhou Engine
 Contact: contact@ivan-reshetnikov.dev
+Contact chanel for legal matters: legal@ivan-reshetnikov.dev
 ************************************
-The MIT License (MIT)
+The Generic Touhou Engine Usage Terms
 
 Copyright (c) 2024, Ivan Reshetnikov.
 
