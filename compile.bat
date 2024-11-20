@@ -30,7 +30,7 @@ echo This compile script is licensed under the MIT License.
 echo For more information, visit: REPO_LINK
 
 :: Compilation flags
-set "FLAGS=/std:c++17 /W3 /O2 /EHsc /MD /DSDL_MAIN_HANDLED"
+set "FLAGS=/std:c++17 /W3 /EHsc /MD /DSDL_MAIN_HANDLED"
 set "FEATURES=/DENGINE_BUILD_DLL"
 
 :: Paths for includes, libraries, and output directories
@@ -61,8 +61,8 @@ cl %FLAGS% /LD %FEATURES% /I"./core/src" /I"%INCLUDE_DIR%" ^
 :: Compile game.exe
 cl %FLAGS% /I"./core/src" /I"%INCLUDE_DIR%" ^
     ./game/src/main.cpp ./game/src/modes/mode.cpp ^
-    ./game/src/modes/game.cpp ./game/src/modes/game/window.cpp ^
-    ./game/src/modes/editor.cpp ./game/src/modes/editor/window.cpp ^
+    ./game/src/modes/game.cpp ./game/src/modes/game/window_g.cpp ^
+    ./game/src/modes/editor.cpp ./game/src/modes/editor/window_e.cpp ^
     /Fo"./game/obj/" /Fe"%BIN_DIR%\game.exe" ^
     /link /LIBPATH:"%BIN_DIR%" /LIBPATH:"%LIB_DIR%" core.lib %LIBS% /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT
 

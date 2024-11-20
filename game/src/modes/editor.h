@@ -28,7 +28,7 @@ THE SOFTWARE.
 #pragma once
 
 #include "mode.h"
-#include "editor/window.h"
+#include "editor/window_e.h"
 
 namespace Editor
 {
@@ -39,6 +39,6 @@ namespace Editor
         void start();
 
     private:
-        
+        Window window;
     };
 }

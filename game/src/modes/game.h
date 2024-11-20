@@ -28,7 +28,7 @@ THE SOFTWARE.
 #pragma once
 
 #include "mode.h"
-#include "game/window.h"
+#include "game/window_g.h"
 
 namespace Game
 {

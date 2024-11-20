@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ***********************************/
 
-#include "window.h"
+#include "window_e.h"
 
 namespace Editor
 {
@@ -33,21 +33,22 @@ namespace Editor
         Core::logInfo("Initializing SDL, used features: SDL_INIT_VIDEO");
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
             Core::logCritical("Failed to initialize SDL!");
-            return;
+            exit(1);
         }
 
-        Core::logInfo("Initializing SDL_image, used features: IMG_INIT_JPG");
-        if (!IMG_Init(IMG_INIT_JPG)) {
+        Core::logInfo("Initializing SDL_image, used features: IMG_INIT_PNG");
+        if (!IMG_Init(IMG_INIT_PNG)) {
             Core::logCritical("Failed to initialize SDL_image!");
             SDL_Quit();
-            return;
+            exit(1);
         }
 
         Core::logInfo("Creating editor window");
         sdlWindow = SDL_CreateWindow("Touhou Engine (Editor)", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
         if (sdlWindow == NULL) {
             Core::logCritical("Could not create game window! SDL error: " + (std::string)SDL_GetError());
-            return;
+            SDL_Quit();
+            exit(1);
         }
 
         renderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_ACCELERATED);
@@ -55,20 +56,27 @@ namespace Editor
             Core::logCritical("Renderer could not be created! SDL error: " + (std::string)SDL_GetError());
             SDL_DestroyWindow(sdlWindow);
             SDL_Quit();
-            return;
+            exit(1);
         }
     }
     
     void Window::mainLoop() {
-        SDL_Texture* texture = IMG_LoadTexture(renderer, "editor/funny.jpg");
-
         Core::logInfo("Entering main loop");
+
+        SDL_Event event;
+        SDL_Texture* texture = IMG_LoadTexture(renderer, "shared/frame.png");
 
         const float targetFPS = 60.0f;
         const Uint32 targetFrameDelay = 1000.0f / targetFPS;
 
         running = true;
         while (running) {
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_QUIT) {
+                    running = false;
+                }
+            }
+
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
             SDL_RenderClear(renderer);
             
